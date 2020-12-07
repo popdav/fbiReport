@@ -19,14 +19,13 @@ const storeFBIMostWanted = async () => {
     }
 }
 
-const checkFBIMostWanted = async (name) => {
+const checkFBIMostWanted = (name) => {
 
     try {
         const rawData = fs.readFileSync(dataPath);
         let FBIMostWanted = JSON.parse(rawData);
         const found = FBIMostWanted.items.find((element) => element.title === name);
-        console.log(found);
-        return found;
+        return found !== undefined;
     } catch (error) {
         console.log('Error with FBI reading from file:');
         console.log(error);

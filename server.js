@@ -4,7 +4,7 @@ const cors = require('cors');
 const logger = require('morgan');
 const app = express();
 const indexRouter = require('./routes/index');
-const {setCronJob} = require('./services/fbi')
+const {setCronJob} = require('./services/fbi');
 
 setCronJob();
 
