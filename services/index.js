@@ -1,6 +1,7 @@
 const fs = require('fs');
+const config = require('../config.json')
 
-const reportsPath = './data/reports.json';
+const reportsPath = config.reportsDataPath;
 
 const onStartCheck = () => {
     try {
@@ -12,11 +13,19 @@ const onStartCheck = () => {
     }
 }
 
-const getIp = (req) => {
-    return req.headers['x-forwarded-for'] || 
+const getData = (req) => {
+    const ip = req.headers['x-forwarded-for'] || 
             req.connection.remoteAddress || 
             req.socket.remoteAddress ||
             (req.connection.socket ? req.connection.socket.remoteAddress : null);
+            
+    const {name, phone} = req.body;
+
+    let text = req.body.text;
+    if (req.body.text === undefined)
+        text = '';
+
+    return {name, phone, ip, text};
 }
 
 const saveReport = (jsonBody) => {
@@ -42,4 +51,4 @@ const saveReport = (jsonBody) => {
     }
 }
 
-module.exports = {getIp, saveReport, onStartCheck};
+module.exports = {getData, saveReport, onStartCheck};

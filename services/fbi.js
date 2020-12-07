@@ -1,8 +1,8 @@
 const fs = require('fs');
 const axios = require('axios');
 const cron = require('node-cron');
-
-const dataPath = './data/FBIMostWanted.json';
+const config = require('../config.json')
+const dataPath = config.fbiDataPath;
 
 const storeFBIMostWanted = async () => {
 

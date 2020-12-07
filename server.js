@@ -4,13 +4,16 @@ const cors = require('cors');
 const logger = require('morgan');
 const app = express();
 const indexRouter = require('./routes/index');
+
+const config = require('./config.json');
+
 const {setCronJob} = require('./services/fbi');
 const {onStartCheck} = require('./services/index')
 
 setCronJob();
 onStartCheck();
 
-const port = 3000;
+const port = config.port;
 
 const corsOptions = {
   origin: 'http://localhost',
@@ -25,5 +28,5 @@ app.use(bodyParser.json())
 app.use('/', indexRouter);
 
 app.listen(port, () => {
-  console.log(`App listening at http://localhost:${3000}`)
+  console.log(`App listening at http://localhost:${port}`)
 })
