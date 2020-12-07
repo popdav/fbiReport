@@ -17,7 +17,10 @@ router.get('/hello', async (req, res) => {
 router.post('/report', async (req, res) => {
     try {
         const {name, phone} = req.body;
-        const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+        const ip = req.headers['x-forwarded-for'] || 
+                    req.connection.remoteAddress || 
+                    req.socket.remoteAddress ||
+                    (req.connection.socket ? req.connection.socket.remoteAddress : null);
 
         if (!checkFBIMostWanted(name)) {
             res.status(422).send({'msg': 'Bad name'});
