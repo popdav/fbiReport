@@ -1,5 +1,6 @@
 const fs = require('fs');
 const axios = require('axios');
+const cron = require('node-cron');
 
 const dataPath = './data/FBIMostWanted.json';
 
@@ -32,4 +33,11 @@ const checkFBIMostWanted = async (name) => {
     }
 }
 
-module.exports = {storeFBIMostWanted, checkFBIMostWanted}
+const setCronJob = async () => {
+    await storeFBIMostWanted();
+    cron.schedule('0 0 */24 * * *', () => {
+        storeFBIMostWanted();
+    });
+}
+
+module.exports = {setCronJob, checkFBIMostWanted}

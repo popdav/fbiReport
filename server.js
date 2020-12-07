@@ -2,15 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const logger = require('morgan');
-const cron = require('node-cron');
 const app = express();
 const indexRouter = require('./routes/index');
-const {storeFBIMostWanted} = require('./services/fbi')
+const {setCronJob} = require('./services/fbi')
 
-storeFBIMostWanted();
-cron.schedule('0 0 */24 * * *', function(){
-    storeFBIMostWanted();
-});
+setCronJob();
 
 const port = 3000;
 
