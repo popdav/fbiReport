@@ -24,7 +24,7 @@ const checkFBIMostWanted = (name) => {
     try {
         const rawData = fs.readFileSync(dataPath);
         let FBIMostWanted = JSON.parse(rawData);
-        const found = FBIMostWanted.items.find((element) => element.title === name);
+        const found = FBIMostWanted.items.find((element) => element.title.includes(name));
         return found !== undefined;
     } catch (error) {
         console.log('Error with FBI reading from file:');

@@ -18,8 +18,11 @@ const getData = (req) => {
             req.connection.remoteAddress || 
             req.socket.remoteAddress ||
             (req.connection.socket ? req.connection.socket.remoteAddress : null);
-            
-    const {name, phone} = req.body;
+
+    let {name, phone} = req.body;
+
+    if (name !== undefined)
+        name = name.toUpperCase();
 
     let text = req.body.text;
     if (req.body.text === undefined)
