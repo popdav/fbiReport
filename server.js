@@ -5,8 +5,10 @@ const logger = require('morgan');
 const app = express();
 const indexRouter = require('./routes/index');
 const {setCronJob} = require('./services/fbi');
+const {onStartCheck} = require('./services/index')
 
 setCronJob();
+onStartCheck();
 
 const port = 3000;
 
